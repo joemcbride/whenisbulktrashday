@@ -1,0 +1,25 @@
+@import './core/colors';
+
+.img {
+  border-radius: 7px;
+}
+
+.yes {
+  background-color: $other-green;
+}
+
+.no {
+  background-color: $red;
+}
+
+.scheduleTitle {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.dateList {
+  li {
+    list-style: none;
+    text-align: center;
+  }
+}

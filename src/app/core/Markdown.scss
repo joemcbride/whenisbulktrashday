@@ -1,0 +1,13 @@
+@import 'colors';
+
+:global(.hljs-attribute) {
+  color: #7FA7CE;
+}
+
+:global(.hljs-tag) {
+  color: rgb(77,77,76);
+}
+
+:global(.xml .hljs-tag .hljs-title) {
+  color: #7FA7CE;
+}

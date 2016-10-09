@@ -1,0 +1,26 @@
+.footer {
+  text-align: center;
+  color: #fff;
+  padding: 50px 0;
+}
+
+$social-color: #fff;
+
+.social {
+  text-align: center;
+  color: $social-color;
+  margin: 0 0 15px 0;
+
+  .link {
+    color: $social-color;
+    font-size: 35px;
+    padding: 0 10px 0 0;
+  }
+
+  .link {
+    &:focus, &:hover {
+      color: $social-color;
+      text-decoration: none;
+    }
+  }
+}

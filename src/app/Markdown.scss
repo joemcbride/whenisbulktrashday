@@ -1,0 +1,24 @@
+@import './core/colors';
+
+.markdown {
+
+  code {
+    color: $code-color;
+    background-color: $code-background;
+    font-size: 0.95em;
+    padding: 1px 3px;
+  }
+
+  pre {
+    color: $markdown-code-color;
+    background-color: $markdown-code-background;
+    padding: 25px;
+    overflow: auto;
+    font-size: 0.90em;
+
+    code {
+      color: inherit;
+      background-color: inherit;
+    }
+  }
+}
