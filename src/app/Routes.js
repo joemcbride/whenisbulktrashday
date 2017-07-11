@@ -1,11 +1,11 @@
 import React from 'react'
-import { Match } from 'react-router'
+import { Route } from 'react-router-dom'
 import Home from './Home'
 import Footer from './Footer'
 
 const Routes = () => (
   <div>
-    <Match exactly pattern="/" component={Home} />
+    <Route exact path="/" component={Home} />
     <Footer/>
   </div>
 )

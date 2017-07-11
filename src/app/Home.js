@@ -23,12 +23,16 @@ Schedule.propTypes = {
   dates: React.PropTypes.arrayOf(React.PropTypes.object)
 }
 
+function equalOrAfterDate(a, b) {
+  return a.format('YYYY-MM-DD') === b.format('YYYY-MM-DD') || a.isAfter(b)
+}
+
 function getBulkTrashDates(start) {
   let startDay = start
   const today = moment()
   const dates = []
 
-  if (startDay >= today) {
+  if (equalOrAfterDate(startDay, today)) {
     dates.push(startDay)
   }
 
@@ -39,7 +43,7 @@ function getBulkTrashDates(start) {
     newday.add(14, 'days')
     startDay = newday
 
-    if (newday >= today) {
+    if (equalOrAfterDate(newday, today)) {
       dates.push(newday)
       count -= 1
     }
@@ -63,7 +67,7 @@ function isItBulkTrashDay(dates, start) {
 }
 
 const Home = () => {
-  const cadenceStartDay = moment('2016-10-04T00:00:00')
+  const cadenceStartDay = moment('2017-07-11T00:00:00')
   // const today = moment('2016-10-10T:00:00:00')
   const today = moment()
   const dates = getBulkTrashDates(cadenceStartDay)
@@ -72,6 +76,7 @@ const Home = () => {
 
   const isTodayTheDayOfWeek = today.day() === today.clone().day(PickupDay).day()
 
+  // console.log('dates', dates)
   // console.log('is today the day?', isTodayTheDayOfWeek)
 
   const subTitle = isTodayTheDayOfWeek

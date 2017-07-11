@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import React from 'react'
 import { renderToString, renderToStaticMarkup } from 'react-dom/server'
-import { ServerRouter, createServerRenderContext } from 'react-router'
+import { StaticRouter } from 'react-router'
 import { PUBLIC_DIR } from '../modules/Constants'
 import Html from '../app/Html'
 import Routes from '../app/Routes'
@@ -36,29 +36,23 @@ function getJavaScriptTags(stats) {
 }
 
 export default function router(req, res) {
-  // first create a context for <ServerRouter>, it's where we keep the
-  // results of rendering for the second pass if necessary
-  const context = createServerRenderContext()
-
+  const context = {}
 
   // render the first time
   let markup = renderToString(
-    <ServerRouter
+    <StaticRouter
       location={req.url}
       context={context}
     >
       <Routes/>
-    </ServerRouter>
+    </StaticRouter>
   )
 
-  // get the result
-  const result = context.getResult()
-
-  // the result will tell you if it redirected, if so, we ignore
+  // the context will tell you if it redirected, if so, we ignore
   // the markup and send a proper redirect.
-  if (result.redirect) {
+  if (context.url) {
     res.writeHead(301, {
-      Location: result.redirect.pathname
+      Location: context.url
     })
     res.end()
   } else {
@@ -66,17 +60,17 @@ export default function router(req, res) {
     // we can send a 404 and then do a second render pass with
     // the context to clue the <Miss> components into rendering
     // this time (on the client they know from componentDidMount)
-    if (result.missed) {
-      res.writeHead(404)
-      markup = renderToString(
-        <ServerRouter
-          location={req.url}
-          context={context}
-        >
-          <Routes/>
-        </ServerRouter>
-      )
-    }
+    // if (result.missed) {
+    //   res.writeHead(404)
+    //   markup = renderToString(
+    //     <StaticRouter
+    //       location={req.url}
+    //       context={context}
+    //     >
+    //       <Routes/>
+    //     </StaticRouter>
+    //   )
+    // }
 
     const webpackStats = getWebpackStats()
     const styles = getStyleTags(webpackStats)
