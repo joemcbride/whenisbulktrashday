@@ -89,13 +89,7 @@ const Home = () => {
     <div className={mainBackground}>
       <Hero title={isPickupDayText} subTitle={subTitle}/>
       <div className={appStyles.content}>
-        <Grid>
-          <Row>
-            <Col col={12}>
-              <Schedule dates={dates}/>
-            </Col>
-          </Row>
-        </Grid>
+        <Schedule dates={dates}/>
       </div>
     </div>
   )
